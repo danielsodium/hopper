@@ -1,1 +1,2 @@
-print("Hello world, from server!")
+local CreateLog = require(game.ServerScriptService.Server.CreateLog)
+CreateLog.createMovingPart()
