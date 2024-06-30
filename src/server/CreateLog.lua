@@ -1,49 +1,57 @@
--- CreateLog.lua
-local TweenService = game:GetService("TweenService")
+local RunService = game:GetService("RunService")
+local ServerStorage = game:GetService("ServerStorage")
 
+-- Creates a log to jump on
+-- Goes up, sideways, then right
 local CreateLog = {}
+CreateLog.__index = CreateLog
 
--- Creates a moving log to ride
--- Moves up, sideways, then down
-function CreateLog.createMovingPart()
-    -- Create the part
-    local part = Instance.new("Part")
-    part.Size = Vector3.new(4, 1, 4)
-    part.Position = Vector3.new(0, 0.5, 0)
-    part.Anchored = true
-    part.Parent = workspace
+-- Constructor
+function CreateLog.new(x, y)
+    local self = setmetatable({}, CreateLog)
+    
+    self.part = ServerStorage:FindFirstChild("Log"):Clone()
 
-    -- Movement parameters
-    local yTargetUp = 20
-    local xTarget = 20
-    local yTargetDown = 0
-    local moveTime = 2  -- Time in seconds for each movement
+    self.part.Position = Vector3.new(x, y, 0)
+    self.part.Anchored = false
+    self.part.Parent = workspace
+    
+    -- Initialize movement state
+    self.state = "up"
+    self.yTargetUp = 20
+    self.xTarget = 20
+    self.yTargetDown = 10
+    self.moveSpeed = 20
+    
+    self.connection = RunService.Heartbeat:Connect(function(dt)
+        self:updatePosition(dt)
+    end)
+    
+    return self
+end
 
-    -- Define the tween info
-    local tweenInfo = TweenInfo.new(
-        moveTime,               -- Time
-        Enum.EasingStyle.Linear -- EasingStyle
-    )
-
-    -- Function to create and play a tween
-    local function movePart(targetPosition)
-        local tween = TweenService:Create(part, tweenInfo, {Position = targetPosition})
-        tween:Play()
-        tween.Completed:Wait() -- Wait until the tween is complete
+-- Update the part's position
+-- Goes Up, then right, then down
+function CreateLog:updatePosition(dt)
+    if self.state == "up" then
+        self.part.Velocity = Vector3.new(0, self.moveSpeed, 0)
+        if self.part.Position.Y >= self.yTargetUp then
+            self.state = "right"
+        end
+    elseif self.state == "right" then
+        self.part.Velocity = Vector3.new(self.moveSpeed, 0, 0)
+        if self.part.Position.X >= self.xTarget then
+            self.state = "down"
+        end
+    elseif self.state == "down" then
+        self.part.Velocity = Vector3.new(0, -self.moveSpeed, 0)
+        if self.part.Position.Y <= self.yTargetDown then
+            self.state = "destroy"
+        end
+    elseif self.state == "destroy" then
+        self.part:Destroy()
+        self.connection:Disconnect()
     end
-
-    -- Move the part up on the y axis
-    movePart(Vector3.new(part.Position.X, yTargetUp, part.Position.Z))
-
-    -- Move the part along the x axis
-    movePart(Vector3.new(xTarget, part.Position.Y, part.Position.Z))
-
-    -- Move the part down on the y axis
-    movePart(Vector3.new(part.Position.X, yTargetDown, part.Position.Z))
-
-    -- Destroy the part
-    part:Destroy()
 end
 
 return CreateLog
-
