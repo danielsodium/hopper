@@ -26,13 +26,17 @@ function Log.new(x, y, z, xtarget, ytarget)
     self.connection = RunService.Heartbeat:Connect(function(dt)
         self:updatePosition(dt)
     end)
-    
+
+
+
     return self
 end
 
 -- Update the part's position
 -- Goes Up, then right, then down
 function Log:updatePosition(dt)
+	local targetOrientation = Vector3.new(0, 0, 0)
+	self.part.Orientation = Vector3.new(targetOrientation.X, targetOrientation.Y, targetOrientation.Z)
     if self.state == "up" then
         self.part.Velocity = Vector3.new(0, self.moveSpeed, 0)
         if self.part.Position.Y >= self.yTargetUp then

@@ -69,15 +69,18 @@ function Level:createWaterDeathZone(position, size)
     end)
 end
 
-function Level:createLog()
-    local log = CreateLog.new(-50, self.logYPosition, 60, 50, 10)
+function Level:createLog(z)
+    local log = CreateLog.new(-50, self.logYPosition, z, 50, 10)
     table.insert(self.logs, log)
 end
 
 function Level:startLogGeneration()
     spawn(function()
         while true do
-            self:createLog()
+            self:createLog(60)
+            self:createLog(70)
+            self:createLog(80)
+            self:createLog(90)
             wait(self.logInterval)
         end
     end)
