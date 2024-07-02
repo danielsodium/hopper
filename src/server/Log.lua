@@ -22,6 +22,10 @@ function Log.new(x, y, z, xtarget, ytarget)
     self.xTarget = xtarget
     self.yTargetDown = y 
     self.moveSpeed = 20
+
+	local bodyForce = Instance.new("BodyForce")
+	bodyForce.Force = Vector3.new(0, self.part:GetMass() * workspace.Gravity, 0)
+	bodyForce.Parent = self.part
     
     self.connection = RunService.Heartbeat:Connect(function(dt)
         self:updatePosition(dt)
