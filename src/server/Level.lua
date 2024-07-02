@@ -1,7 +1,7 @@
 local ServerStorage = game:GetService("ServerStorage")
 local RunService = game:GetService("RunService")
-local CreateLog = require(game.ServerScriptService.Server.Log)
 local Water = require(game.ServerScriptService.Server.Water)
+local LogGen = require(game.ServerScriptService.Server.LogGen)
 
 local Level = {}
 Level.__index = Level
@@ -23,8 +23,8 @@ function Level.new()
 
     self:createTerrain()
 
-    self:startLogGeneration()
-    
+	local logspawn = LogGen.new(0, 20, 150);
+
     return self
 end
 
@@ -45,45 +45,9 @@ function Level:createTerrain()
     endPlatform.Parent = workspace
 
 	-- Create Death Water
-	local water = Water.new(0, -2, 100, 100, 15, 100);
-
-end
-
-function Level:createWaterDeathZone(position, size)
-    local region = Region3.new(
-        position - size / 2,
-        position + size / 2
-    )
-
-    -- Monitor the region for players touching the water
-    RunService.Heartbeat:Connect(function()
-        local parts = workspace:FindPartsInRegion3(region, nil, math.huge)
-        for _, part in pairs(parts) do
-            local character = part.Parent
-            if character and character:FindFirstChild("Humanoid") then
-                character.Humanoid.Health = 0
-            end
-        end
-    end)
-end
+	-- local water = Water.new(0, -2, 100, 100, 15, 100);
 
 
--- Method to create and move logs
-function Level:createLog(z)
-    local log = CreateLog.new(self.logXStart, -20, z, 50, 0)
-    table.insert(self.logs, log)
-end
-
--- Method to start generating logs at intervals
-function Level:startLogGeneration()
-    spawn(function()
-        while true do
-            for _, zPosition in ipairs(self.logZPositions) do
-                self:createLog(zPosition)
-                wait(math.random(1, self.logInterval))  -- Randomize the spawn interval
-            end
-        end
-    end)
 end
 
 return Level

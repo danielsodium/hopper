@@ -1,3 +1,4 @@
+local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local ServerStorage = game:GetService("ServerStorage")
 
@@ -8,55 +9,83 @@ Log.__index = Log
 
 -- Constructor
 function Log.new(x, y, z, xtarget, ytarget)
-    local self = setmetatable({}, Log)
-    
-    self.part = ServerStorage:FindFirstChild("Log"):Clone()
 
-    self.part.Position = Vector3.new(x, y, z)
-    self.part.Anchored = false 
-    self.part.Parent = workspace
-    
-    -- Initialize movement state
-    self.state = "up"
-    self.yTargetUp = ytarget 
-    self.xTarget = xtarget
-    self.yTargetDown = y 
-    self.moveSpeed = 20
+	print("LOG")
+	local self = setmetatable({}, Log);
 
-    
-    self.connection = RunService.Heartbeat:Connect(function(dt)
-        self:updatePosition(dt)
-    end)
+	self.part = ServerStorage:FindFirstChild("Log"):Clone()
+	self.part.Position = Vector3.new(x, y, z)
+		-- Platform movement parameters
+	self.dir = Vector3.new(10, 0, 0)
+	self.spd = 10;
+	self.startPos = self.part.Position
 
 
+	self.bodyPosition = Instance.new("BodyPosition")
+	self.bodyPosition.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
 
-    return self
+	-- Smoothhhhh
+	self.bodyPosition.P = 1000 
+	self.bodyPosition.D = 100 
+
+	self.bodyPosition.Position = self.part.Position
+	self.bodyPosition.Parent = self.part
+
+	self.bodyGyro = Instance.new("BodyGyro")
+	self.bodyGyro.MaxTorque = Vector3.new(math.huge, math.huge, math.huge)
+	self.bodyGyro.CFrame = self.part.CFrame
+	self.bodyGyro.Parent = self.part
+
+	-- Player platform attachment
+	self:onPlayerTouch()
+
+	-- Start the platform movement
+	self:movePlatform()
+
 end
 
--- Update the part's position
--- Goes Up, then right, then down
-function Log:updatePosition(dt)
-	local targetOrientation = Vector3.new(0, 0, 0)
-	self.part.Orientation = Vector3.new(targetOrientation.X, targetOrientation.Y, targetOrientation.Z)
-    if self.state == "up" then
-        self.part.Velocity = Vector3.new(0, self.moveSpeed, 0)
-        if self.part.Position.Y >= self.yTargetUp then
-            self.state = "right"
-        end
-    elseif self.state == "right" then
-        self.part.Velocity = Vector3.new(self.moveSpeed, 0, 0)
-        if self.part.Position.X >= self.xTarget then
-            self.state = "down"
-        end
-    elseif self.state == "down" then
-        self.part.Velocity = Vector3.new(0, -self.moveSpeed, 0)
-        if self.part.Position.Y <= self.yTargetDown then
-            self.state = "destroy"
-        end
-    elseif self.state == "destroy" then
-        self.part:Destroy()
-        self.connection:Disconnect()
-    end
+-- Movement function
+function Log:movePlatform()
+	local direction = 1
+	while true do
+		local targetPosition = self.startPos+ (self.dir * direction)
+		self.bodyPosition.Position = targetPosition
+		
+		-- Wait until the platform is close enough to the target position
+		while (self.part.Position - targetPosition).magnitude > 0.1 do
+			RunService.Heartbeat:Wait()
+		end
+
+		-- Pause before changing direction
+		wait(1)
+		direction = direction * -1
+	end
+end
+
+function Log:onPlayerTouch()
+	self.part.Touched:Connect(function(otherPart)
+		local character = otherPart.Parent
+		if character and Players:GetPlayerFromCharacter(character) then
+			local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+			if humanoidRootPart then
+				-- Weld the player's HumanoidRootPart to the platform
+				local weld = Instance.new("WeldConstraint")
+				weld.Part0 = self.part 
+				weld.Part1 = humanoidRootPart
+				weld.Parent = self.part
+
+				-- Clean up weld when player leaves the platform
+				local function onPlayerLeave()
+					if weld.Parent then
+						weld:Destroy()
+					end
+					humanoidRootPart.AncestryChanged:Disconnect(onPlayerLeave)
+				end
+
+				humanoidRootPart.AncestryChanged:Connect(onPlayerLeave)
+			end
+		end
+	end)
 end
 
 return Log 
