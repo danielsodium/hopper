@@ -1,7 +1,7 @@
 local ServerStorage = game:GetService("ServerStorage")
 local RunService = game:GetService("RunService")
-local Terrain = workspace.Terrain
 local CreateLog = require(game.ServerScriptService.Server.Log)
+local Water = require(game.ServerScriptService.Server.Water)
 
 local Level = {}
 Level.__index = Level
@@ -43,13 +43,9 @@ function Level:createTerrain()
     endPlatform.Position = Vector3.new(0, 0, 200)
     endPlatform.Anchored = true
     endPlatform.Parent = workspace
-    
-    -- Create the water area using Terrain
-    local waterSize = Vector3.new(self.x, self.y, 100)
-    local waterPosition = Vector3.new(0, -5, 100)  -- Position adjusted to fit terrain
-    Terrain:FillBlock(CFrame.new(waterPosition), waterSize, Enum.Material.Water)
-	
-    self:createWaterDeathZone(waterPosition, waterSize)
+
+	-- Create Death Water
+	local water = Water.new(0, -2, 100, 100, 15, 100);
 
 end
 
@@ -74,7 +70,7 @@ end
 
 -- Method to create and move logs
 function Level:createLog(z)
-    local log = CreateLog.new(self.logXStart, self.logYPosition, z, 50, 10)
+    local log = CreateLog.new(self.logXStart, -20, z, 50, 0)
     table.insert(self.logs, log)
 end
 
