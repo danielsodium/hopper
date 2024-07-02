@@ -3,24 +3,24 @@ local ServerStorage = game:GetService("ServerStorage")
 
 -- Creates a log to jump on
 -- Goes up, sideways, then right
-local CreateLog = {}
-CreateLog.__index = CreateLog
+local Log = {}
+Log.__index = Log 
 
 -- Constructor
-function CreateLog.new(x, y)
-    local self = setmetatable({}, CreateLog)
+function Log.new(x, y, z, xtarget, ytarget)
+    local self = setmetatable({}, Log)
     
     self.part = ServerStorage:FindFirstChild("Log"):Clone()
 
-    self.part.Position = Vector3.new(x, y, 0)
-    self.part.Anchored = false
+    self.part.Position = Vector3.new(x, y, z)
+    self.part.Anchored = false 
     self.part.Parent = workspace
     
     -- Initialize movement state
     self.state = "up"
-    self.yTargetUp = 20
-    self.xTarget = 20
-    self.yTargetDown = 10
+    self.yTargetUp = ytarget 
+    self.xTarget = xtarget
+    self.yTargetDown = y 
     self.moveSpeed = 20
     
     self.connection = RunService.Heartbeat:Connect(function(dt)
@@ -32,7 +32,7 @@ end
 
 -- Update the part's position
 -- Goes Up, then right, then down
-function CreateLog:updatePosition(dt)
+function Log:updatePosition(dt)
     if self.state == "up" then
         self.part.Velocity = Vector3.new(0, self.moveSpeed, 0)
         if self.part.Position.Y >= self.yTargetUp then
@@ -54,4 +54,4 @@ function CreateLog:updatePosition(dt)
     end
 end
 
-return CreateLog
+return Log 
