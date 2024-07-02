@@ -13,11 +13,13 @@ function Level.new()
 	self.x = 100;
 
     self.logs = {}
-    self.logInterval = 5 
+    self.logInterval = 3 
     self.logYPosition = 0 
-    self.logXStart = 0  
+    self.logXStart =  -self.x/2 
     self.logXEnd = self.x
     self.logSpeed = 20  
+
+	self.logZPositions = {60, 70, 80, 90, 100}
 
     self:createTerrain()
 
@@ -69,19 +71,21 @@ function Level:createWaterDeathZone(position, size)
     end)
 end
 
+
+-- Method to create and move logs
 function Level:createLog(z)
-    local log = CreateLog.new(-50, self.logYPosition, z, 50, 10)
+    local log = CreateLog.new(self.logXStart, self.logYPosition, z, 50, 10)
     table.insert(self.logs, log)
 end
 
+-- Method to start generating logs at intervals
 function Level:startLogGeneration()
     spawn(function()
         while true do
-            self:createLog(60)
-            self:createLog(70)
-            self:createLog(80)
-            self:createLog(90)
-            wait(self.logInterval)
+            for _, zPosition in ipairs(self.logZPositions) do
+                self:createLog(zPosition)
+                wait(math.random(1, self.logInterval))  -- Randomize the spawn interval
+            end
         end
     end)
 end
