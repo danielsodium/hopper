@@ -12,18 +12,9 @@ function Level.new()
     self.y = 20;
 	self.x = 100;
 
-    self.logs = {}
-    self.logInterval = 3 
-    self.logYPosition = 0 
-    self.logXStart =  -self.x/2 
-    self.logXEnd = self.x
-    self.logSpeed = 20  
-
-	self.logZPositions = {60, 70, 80, 90, 100}
-
     self:createTerrain()
 
-	local logspawn = LogGen.new(0, 20, 150);
+	local logspawn = LogGen.new(3, 0, 6, 60);
 
     return self
 end
@@ -45,7 +36,7 @@ function Level:createTerrain()
     endPlatform.Parent = workspace
 
 	-- Create Death Water
-	-- local water = Water.new(0, -2, 100, 100, 15, 100);
+	local water = Water.new(0, -2, 100, 100, 15, 100);
 
 
 end

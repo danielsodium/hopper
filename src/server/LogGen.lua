@@ -1,14 +1,12 @@
-
-local RunService = game:GetService("RunService")
-local ServerStorage = game:GetService("ServerStorage")
-
+-- LogGen.lua
 local Log = require(game.ServerScriptService.Server.Log)
+local RunService = game:GetService("RunService")
 
 local LogGen = {}
-LogGen.__index = LogGen 
+LogGen.__index = LogGen
 
 -- Constructor
-function LogGen.new(x, y, z, interval)
+function LogGen.new(interval, x, y, z)
     local self = setmetatable({}, LogGen)
     
     self.interval = interval or 5 -- Time in seconds between log creation
@@ -16,29 +14,37 @@ function LogGen.new(x, y, z, interval)
     self.y = y or 0
     self.z = z or 0
     self.logs = {}
+    self.lastLogTime = 0
     
-    -- Start generating logs
-    self:startGeneratingLogs()
+    -- Connect to the RunService Heartbeat event
+    self.heartbeatConnection = RunService.Heartbeat:Connect(function(deltaTime)
+        self:onHeartbeat(deltaTime)
+    end)
     
     return self
 end
 
 -- Method to create a log
 function LogGen:createLog()
-    local log = Log.new(self.x, self.y, self.z)
+    local log = Log.new(self.x- 50, self.y, self.z, 10, self.x + 50)
     table.insert(self.logs, log)
 end
 
--- Method to start generating logs at intervals
-function LogGen:startGeneratingLogs()
-    spawn(function()
-        while true do
-			print("LOGGGG")
-            self:createLog()
-            wait(self.interval)
-        end
-    end)
+-- Heartbeat event handler
+function LogGen:onHeartbeat(deltaTime)
+    self.lastLogTime = self.lastLogTime + deltaTime
+    if self.lastLogTime >= self.interval then
+        self:createLog()
+        self.lastLogTime = self.lastLogTime - self.interval
+    end
 end
 
+-- Method to stop generating logs
+function LogGen:stopGeneratingLogs()
+    if self.heartbeatConnection then
+        self.heartbeatConnection:Disconnect()
+        self.heartbeatConnection = nil
+    end
+end
 
 return LogGen
