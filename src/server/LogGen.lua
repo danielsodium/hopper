@@ -9,7 +9,9 @@ LogGen.__index = LogGen
 function LogGen.new(interval, x, y, z)
     local self = setmetatable({}, LogGen)
     
-    self.interval = interval or 5 -- Time in seconds between log creation
+
+	self.speed = math.random(10, 20)
+    self.interval = math.floor(50/ self.speed) 
     self.x = x or 0
     self.y = y or 0
     self.z = z or 0
@@ -26,7 +28,7 @@ end
 
 -- Method to create a log
 function LogGen:createLog()
-    local log = Log.new(self.x- 50, self.y, self.z, 10, self.x + 50)
+    local log = Log.new(self.x- 50, self.y, self.z, self.speed, self.x + 50)
     table.insert(self.logs, log)
 end
 

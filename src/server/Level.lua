@@ -14,7 +14,9 @@ function Level.new()
 
     self:createTerrain()
 
-	local logspawn = LogGen.new(3, 0, 6, 60);
+	for i=0,8 do
+		LogGen.new(3, 0, 6, 60+10*i);
+	end
 
     return self
 end
