@@ -1,6 +1,8 @@
 -- Log.lua
 local TweenService = game:GetService("TweenService")
 local ServerStorage = game:GetService("ServerStorage")
+local Players = game:GetService("Players")
+
 
 local Log = {}
 Log.__index = Log
@@ -35,9 +37,27 @@ function Log:startMoving()
     local tween = TweenService:Create(self.part, tweenInfo, goal)
     tween:Play()
     
+    -- Update character position while log is moving
+    game:GetService("RunService").Heartbeat:Connect(function()
+        self:updateCharacterPosition()
+    end)
+    
     tween.Completed:Connect(function()
         self:destroy()
     end)
+end
+
+-- Method to update the position of the character on top of the log
+function Log:updateCharacterPosition()
+    for _, player in ipairs(Players:GetPlayers()) do
+        local character = player.Character
+        if character then
+            local rootPart = character:FindFirstChild("HumanoidRootPart")
+            if rootPart and self:isOnTopOfLog(rootPart) then
+                rootPart.CFrame = rootPart.CFrame + Vector3.new(self.part.Position.X - rootPart.Position.X, 0, self.part.Position.Z - rootPart.Position.Z)
+            end
+        end
+    end
 end
 
 -- Method to destroy the log and clean up
