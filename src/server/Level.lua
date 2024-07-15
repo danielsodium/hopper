@@ -12,12 +12,16 @@ function Level.new(x, y, z, lognum)
     self.y = y;
 	self.x = x;
 	self.z = z;
+
 	self.lognum = lognum or 8;
+	self.start_platform_size = 30
+	self.end_platform_size = 20
+
 
     self:createTerrain()
 
 	for i=0,self.lognum-1 do
-		LogGen.new(3, self.x, self.y + 6, self.z + 55+10*i);
+		LogGen.new(3, self.x, self.y + 6, self.z + self.start_platform_size + 5+ 10*i);
 	end
 
     return self
@@ -27,20 +31,20 @@ function Level:createTerrain()
 
     -- Create the starting land platform
     local startPlatform = Instance.new("Part")
-    startPlatform.Size = Vector3.new(100, 20, 100)
-    startPlatform.Position = Vector3.new(self.x, self.y, self.z)
+    startPlatform.Size = Vector3.new(100, 20, self.start_platform_size)
+    startPlatform.Position = Vector3.new(self.x, self.y, self.z + self.start_platform_size/2)
     startPlatform.Anchored = true
     startPlatform.Parent = workspace
     
     -- Create the ending land platform
     local endPlatform = Instance.new("Part")
-    endPlatform.Size = Vector3.new(100, 20, 100)
-    endPlatform.Position = Vector3.new(self.x, self.y, self.z + 50 + 10*self.lognum + 50)
+    endPlatform.Size = Vector3.new(100, 20, self.end_platform_size)
+    endPlatform.Position = Vector3.new(self.x, self.y, self.z + self.start_platform_size + 10*self.lognum + self.end_platform_size/2)
     endPlatform.Anchored = true
     endPlatform.Parent = workspace
 
 	-- Create Death Water
-	local water = Water.new(self.x, self.y - 2, self.z + 50, 100, 15, 10*self.lognum);
+	local water = Water.new(self.x, self.y - 2, self.z + self.start_platform_size, 100, 15, 10*self.lognum);
 
 end
 

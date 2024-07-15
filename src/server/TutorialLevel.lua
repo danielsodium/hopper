@@ -5,7 +5,7 @@ local TutorialLevel = setmetatable({}, Level)
 TutorialLevel.__index = TutorialLevel
 
 function TutorialLevel.new(x,y,z)
-    local self = Level.new(x,y,z, 2)
+    local self = Level.new(x,y,z, 1)
     setmetatable(self, TutorialLevel)
     
 	self:createTutorial();
@@ -15,7 +15,7 @@ end
 function TutorialLevel:createTutorial()
 	local sign = ServerStorage:FindFirstChild("TutorialSign"):Clone()
 	sign.Parent = workspace;
-	sign:MoveTo(Vector3.new(0,20,0))
+	sign:MoveTo(Vector3.new(-25,12,38))
     
 end
 
