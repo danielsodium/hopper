@@ -37,6 +37,16 @@ function Level:createTerrain()
     startPlatform.Position = Vector3.new(self.x, self.y, self.z + self.start_platform_size/2)
     startPlatform.Anchored = true
     startPlatform.Parent = workspace
+	startPlatform.BrickColor = BrickColor.new("Sea green")
+	startPlatform.TopSurface = Enum.SurfaceType.Smooth
+	startPlatform.BottomSurface = Enum.SurfaceType.Smooth
+	startPlatform.LeftSurface = Enum.SurfaceType.Smooth
+	startPlatform.RightSurface = Enum.SurfaceType.Smooth
+	startPlatform.FrontSurface = Enum.SurfaceType.Smooth
+	startPlatform.BackSurface = Enum.SurfaceType.Smooth
+
+
+
     
     -- Create the ending land platform
     local endPlatform = Instance.new("Part")
@@ -44,6 +54,15 @@ function Level:createTerrain()
     endPlatform.Position = Vector3.new(self.x, self.y, self.z + self.start_platform_size + 10*self.lognum + self.end_platform_size/2)
     endPlatform.Anchored = true
     endPlatform.Parent = workspace
+	endPlatform.BrickColor = BrickColor.new("Sea green")
+	endPlatform.TopSurface = Enum.SurfaceType.Smooth
+	endPlatform.BottomSurface = Enum.SurfaceType.Smooth
+	endPlatform.LeftSurface = Enum.SurfaceType.Smooth
+	endPlatform.RightSurface = Enum.SurfaceType.Smooth
+	endPlatform.FrontSurface = Enum.SurfaceType.Smooth
+	endPlatform.BackSurface = Enum.SurfaceType.Smooth
+
+
 
 	-- Create the level teleporter
 	local teleporter = Instance.new("SpawnLocation");
