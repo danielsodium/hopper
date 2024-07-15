@@ -1,5 +1,6 @@
 local ServerStorage = game:GetService("ServerStorage")
 local RunService = game:GetService("RunService")
+local Workspace = game:GetService("Workspace")
 local Water = require(game.ServerScriptService.Server.Water)
 local LogGen = require(game.ServerScriptService.Server.LogGen)
 
@@ -43,10 +44,15 @@ function Level:createTerrain()
     endPlatform.Anchored = true
     endPlatform.Parent = workspace
 
-
 	-- Create the level teleporter
 	local teleporter = Instance.new("Part");
 	teleporter.Position = Vector3.new(self.x, self.y+20, self.z + self.start_platform_size/2 + 5)
+	teleporter.Parent = Workspace.LevelTeleports
+	teleporter.Anchored = true
+	teleporter.CanCollide = false
+	teleporter.CanTouch = false
+	teleporter.Transparency = 1;
+	teleporter.Name = "Level" .. tostring(self.lognum - 1);
 
 	-- Create Death Water
 	local water = Water.new(self.x, self.y - 2, self.z + self.start_platform_size, 100, 15, 10*self.lognum);
