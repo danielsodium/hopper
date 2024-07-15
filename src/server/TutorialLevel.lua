@@ -15,7 +15,7 @@ end
 function TutorialLevel:createTutorial()
 	local sign = ServerStorage:FindFirstChild("TutorialSign"):Clone()
 	sign.Parent = workspace;
-	sign:MoveTo(Vector3.new(-25,12,38))
+	sign:MoveTo(Vector3.new(-25,12,28))
     
 end
 

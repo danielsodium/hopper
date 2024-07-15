@@ -1,5 +1,6 @@
 local ServerStorage = game:GetService("ServerStorage")
 local RunService = game:GetService("RunService")
+local Players = game:GetService("Players")
 local Workspace = game:GetService("Workspace")
 local Water = require(game.ServerScriptService.Server.Water)
 local LogGen = require(game.ServerScriptService.Server.LogGen)
@@ -45,14 +46,32 @@ function Level:createTerrain()
     endPlatform.Parent = workspace
 
 	-- Create the level teleporter
-	local teleporter = Instance.new("Part");
-	teleporter.Position = Vector3.new(self.x, self.y+20, self.z + self.start_platform_size/2 + 5)
+	local teleporter = Instance.new("SpawnLocation");
+	teleporter.Position = Vector3.new(self.x, self.y+20, self.z + self.start_platform_size + 10*self.lognum + self.end_platform_size/2)
 	teleporter.Parent = Workspace.LevelTeleports
 	teleporter.Anchored = true
 	teleporter.CanCollide = false
 	teleporter.CanTouch = false
 	teleporter.Transparency = 1;
 	teleporter.Name = "Level" .. tostring(self.lognum - 1);
+
+	-- When the ending land platform touched, update respawn point
+	local function onTouch(otherPart)
+		local character = otherPart.Parent
+		local player = Players:GetPlayerFromCharacter(character)
+	
+		if player then
+			-- Set the respawn location to this part's position
+			player.RespawnLocation = teleporter;
+			-- Optionally, give some feedback to the player
+			if character:FindFirstChild("Humanoid") then
+				character.Humanoid:TakeDamage(0)  -- Just to trigger any feedback, if needed
+			end
+		end
+	end
+	
+	-- Connect the touch event
+	endPlatform.Touched:Connect(onTouch)
 
 	-- Create Death Water
 	local water = Water.new(self.x, self.y - 2, self.z + self.start_platform_size, 100, 15, 10*self.lognum);
