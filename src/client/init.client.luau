@@ -12,6 +12,7 @@ local function onCharacterDied()
     end
 end
 
+-- Make the player move with the Logs
 local function onHeartbeat()
     local character = player.Character
     local rootPart = character:WaitForChild("HumanoidRootPart")

@@ -53,6 +53,7 @@ function Level:createTerrain()
 	teleporter.CanCollide = false
 	teleporter.CanTouch = false
 	teleporter.Transparency = 1;
+	teleporter.Orientation = Vector3.new(0,0,180)
 	teleporter.Name = "Level" .. tostring(self.lognum - 1);
 
 	-- When the ending land platform touched, update respawn point
@@ -61,6 +62,10 @@ function Level:createTerrain()
 		local player = Players:GetPlayerFromCharacter(character)
 	
 		if player then
+			local score = player:FindFirstChild("leaderstats"):FindFirstChild("Levels")
+			if (score.Value < self.lognum-1) then
+				score.Value = self.lognum-1
+			end
 			-- Set the respawn location to this part's position
 			player.RespawnLocation = teleporter;
 			-- Optionally, give some feedback to the player
