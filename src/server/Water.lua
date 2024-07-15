@@ -17,7 +17,7 @@ function Water.new(x, y, z, w, h, d)
 
     -- Create the water area using Terrain
     local waterSize = Vector3.new(w, h, d)
-    local waterPosition = Vector3.new(x, y, z)
+    local waterPosition = Vector3.new(x, y, z+d/2)
     Terrain:FillBlock(CFrame.new(waterPosition), waterSize, Enum.Material.Water)
 	
     self:createWaterDeathZone(waterPosition, waterSize)
