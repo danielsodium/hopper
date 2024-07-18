@@ -1,5 +1,6 @@
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
 
 local player = Players.LocalPlayer
 
@@ -48,4 +49,28 @@ end)
 
 if player.Character then
     setupCharacter(player.Character)
+end
+
+-- When the player enter the game
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Players = game:GetService("Players")
+local captureInputModule = require(ReplicatedStorage:WaitForChild("Shared"):WaitForChild("captureInput"))
+
+local function onCharacterAdded(character)
+    captureInputModule.captureInput()
+end
+
+local function onPlayerAdded(player)
+    player.CharacterAdded:Connect(onCharacterAdded)
+    if player.Character then
+        onCharacterAdded(player.Character)
+    end
+end
+
+Players.PlayerAdded:Connect(onPlayerAdded)
+
+-- For testing when the player is already in the game
+if Players.LocalPlayer then
+    onPlayerAdded(Players.LocalPlayer)
 end
