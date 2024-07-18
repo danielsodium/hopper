@@ -4,6 +4,7 @@ local Players = game:GetService("Players")
 local Workspace = game:GetService("Workspace")
 local Water = require(game.ServerScriptService.Server.Water)
 local LogGen = require(game.ServerScriptService.Server.LogGen)
+local Timer = require(game.ServerScriptService.Server.Player)
 
 local Level = {}
 Level.__index = Level
@@ -44,9 +45,6 @@ function Level:createTerrain()
 	startPlatform.RightSurface = Enum.SurfaceType.Smooth
 	startPlatform.FrontSurface = Enum.SurfaceType.Smooth
 	startPlatform.BackSurface = Enum.SurfaceType.Smooth
-
-
-
     
     -- Create the ending land platform
     local endPlatform = Instance.new("Part")
@@ -61,7 +59,6 @@ function Level:createTerrain()
 	endPlatform.RightSurface = Enum.SurfaceType.Smooth
 	endPlatform.FrontSurface = Enum.SurfaceType.Smooth
 	endPlatform.BackSurface = Enum.SurfaceType.Smooth
-
 
 
 	-- Create the level teleporter
@@ -82,6 +79,9 @@ function Level:createTerrain()
 	
 		if player then
 			local score = player:FindFirstChild("leaderstats"):FindFirstChild("Levels")
+			-- reset timer when reached a new check poinnt
+			-- Timer.restartTimer(player);
+
 			if (score.Value < self.lognum-1) then
 				score.Value = self.lognum-1
 			end
