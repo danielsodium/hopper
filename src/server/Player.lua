@@ -42,7 +42,7 @@ local function startTimer(player, timeValue, screenGui, timeLabel)
 
             timeLabel.Text = string.format("%d seconds remaining", timeLimit)
 
-            print(string.format("%d seconds remaining for %s", timeLimit, player.Name))
+            -- print(string.format("%d seconds remaining for %s", timeLimit, player.Name))
         end
 
         if timeLimit <= 0 then
@@ -51,7 +51,7 @@ local function startTimer(player, timeValue, screenGui, timeLabel)
             local humanoid = character and character:FindFirstChild("Humanoid")
             if humanoid and humanoid.Parent then
                 humanoid.Health = 0
-                print("Time's up! " .. player.Name .. " has been killed.")
+                -- print("Time's up! " .. player.Name .. " has been killed.")
             end
 
             timeLabel.Text = "Time's up!"
@@ -65,7 +65,7 @@ local function startTimer(player, timeValue, screenGui, timeLabel)
 end
 
 Players.PlayerAdded:Connect(function(player)
-    print("Player added: " .. player.Name)
+    -- print("Player added: " .. player.Name)
 
     -- Create a Time value for the player
     local timeValue = Instance.new("NumberValue")
@@ -77,7 +77,7 @@ Players.PlayerAdded:Connect(function(player)
 
     player.CharacterAdded:Connect(function(character)
         local humanoid = character:WaitForChild("Humanoid")
-        print(player.Name .. "'s character loaded.")
+        -- print(player.Name .. "'s character loaded.")
 
         local screenGui, timeLabel = setupClockGui(player)
 
