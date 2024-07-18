@@ -22,7 +22,7 @@ local function onHeartbeat()
     raycastParams.FilterDescendantsInstances = {character}
     raycastParams.FilterType = Enum.RaycastFilterType.Exclude
 
-    local raycastResult = workspace:Raycast(rootPart.Position, Vector3.new(0, -50, 0), raycastParams)
+    local raycastResult = workspace:Raycast(rootPart.Position, Vector3.new(0, -5, 0), raycastParams)
     if raycastResult and raycastResult.Instance.Name == "Log" then
         local platformCFrame = raycastResult.Instance.CFrame
 
@@ -36,6 +36,7 @@ local function onHeartbeat()
         lastPlatformCFrame = nil
     end
 end
+
 
 local function setupCharacter(character)
     local humanoid = character:FindFirstChild("Humanoid") or character:WaitForChild("Humanoid")
