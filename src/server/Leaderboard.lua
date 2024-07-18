@@ -1,3 +1,4 @@
+-- Leaderboard.lua
 local Players = game:GetService("Players")
 
 local Leaderboard = {}
@@ -32,14 +33,18 @@ function Leaderboard:onPlayerAdded(player)
     leaderstats.Name = "leaderstats"
     leaderstats.Parent = player
     
-    -- Create a score int value
-    local score = Instance.new("IntValue")
-    score.Name = "Levels"
-    score.Value = 0
-    score.Parent = leaderstats
+    -- Create a levels int value
+    local levels = Instance.new("IntValue")
+    levels.Name = "Levels"
+    levels.Value = 0
+    levels.Parent = leaderstats
+
+    -- Create a coins int value
+    local coins = Instance.new("IntValue")
+    coins.Name = "Coins"
+    coins.Value = 0
+    coins.Parent = leaderstats
     
 end
-
-
 
 return Leaderboard
