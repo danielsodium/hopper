@@ -3,9 +3,12 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Level = require(game.ServerScriptService.Server.Level)
 
+local Timer = require(game.ServerScriptService.Server.Timer)
+
 local TutorialLevel = setmetatable({}, Level)
 TutorialLevel.__index = TutorialLevel
 
+local firstClear = true;
 -- Ensure the RemoteEvent exists
 local activateTutorialInputEvent = ReplicatedStorage:FindFirstChild("ActivateTutorialInput")
 
@@ -26,10 +29,13 @@ function TutorialLevel:createTutorial()
 end
 
 function TutorialLevel:activateCaptureInput()
-    if activateTutorialInputEvent then
-        activateTutorialInputEvent:FireAllClients()
-    else
-        warn("ActivateTutorialInput RemoteEvent not found in ReplicatedStorage")
+    if firstClear then
+        if activateTutorialInputEvent then
+            activateTutorialInputEvent:FireAllClients()
+        else
+            warn("ActivateTutorialInput RemoteEvent not found in ReplicatedStorage")
+        end
+        firstClear = false
     end
 end
 

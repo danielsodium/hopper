@@ -4,7 +4,6 @@ local Players = game:GetService("Players")
 local Workspace = game:GetService("Workspace")
 local Water = require(game.ServerScriptService.Server.Water)
 local LogGen = require(game.ServerScriptService.Server.LogGen)
-local Timer = require(game.ServerScriptService.Server.Player)
 
 local Level = {}
 Level.__index = Level
@@ -19,7 +18,6 @@ function Level.new(x, y, z, lognum)
 	self.lognum = lognum or 8;
 	self.start_platform_size = 30
 	self.end_platform_size = 20
-
 
     self:createTerrain()
 

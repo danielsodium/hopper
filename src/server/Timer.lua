@@ -64,22 +64,56 @@ local function startTimer(player, timeValue, screenGui, timeLabel)
     return timerCoroutine
 end
 
+local screenGui, timeLabel
+local currentTimerCoroutine
+local timeValue
+local humanoid
+
+function PlayerModule.restartTimer(player) 
+    print("Player added: " .. player.Name)
+
+    player.CharacterAdded:Connect(function(character)
+        humanoid = character:WaitForChild("Humanoid")
+        print(player.Name .. "'s character landed.\n\n")
+
+        screenGui, timeLabel = setupClockGui(player)
+
+        timeValue.Value = time
+
+        if currentTimerCoroutine and coroutine.status(currentTimerCoroutine) == "suspended" then
+            coroutine.close(currentTimerCoroutine)
+        end
+        
+        currentTimerCoroutine = startTimer(player, timeValue, screenGui, timeLabel)
+
+        humanoid.Died:Connect(function()
+
+            screenGui:Destroy()
+
+            if currentTimerCoroutine and coroutine.status(currentTimerCoroutine) == "running" then
+                coroutine.yield(currentTimerCoroutine)
+            end
+
+        end)
+    end)
+
+end
+
 Players.PlayerAdded:Connect(function(player)
     -- print("Player added: " .. player.Name)
 
     -- Create a Time value for the player
-    local timeValue = Instance.new("NumberValue")
+    timeValue = Instance.new("NumberValue")
     timeValue.Name = "Time"
     timeValue.Value = time
     timeValue.Parent = player
 
-    local currentTimerCoroutine
 
     player.CharacterAdded:Connect(function(character)
-        local humanoid = character:WaitForChild("Humanoid")
-        -- print(player.Name .. "'s character loaded.")
+        humanoid = character:WaitForChild("Humanoid")
+        print(player.Name .. "'s character loaded.")
 
-        local screenGui, timeLabel = setupClockGui(player)
+        screenGui, timeLabel = setupClockGui(player)
 
         timeValue.Value = time
 

@@ -1,7 +1,6 @@
 local Players = game:GetService("Players")
 local TutorialLevel = require(game.ServerScriptService.Server.TutorialLevel)
 local LevelGen = require(game.ServerScriptService.Server.LevelGen)
-local timer = require(game.ServerScriptService.Server.Player)
 
 local Leaderboard = require(game.ServerScriptService.Server.Leaderboard)
 
