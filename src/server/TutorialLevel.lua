@@ -3,8 +3,6 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Level = require(game.ServerScriptService.Server.Level)
 
-local Timer = require(game.ServerScriptService.Server.Timer)
-
 local TutorialLevel = setmetatable({}, Level)
 TutorialLevel.__index = TutorialLevel
 
