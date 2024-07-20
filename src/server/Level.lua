@@ -67,7 +67,7 @@ function Level:createTerrain()
 	teleporter.CanCollide = false
 	teleporter.CanTouch = false
 	teleporter.Transparency = 1;
-	teleporter.Orientation = Vector3.new(0,0,180)
+	teleporter.Orientation = Vector3.new(180,0,0)
 	teleporter.Name = "Level" .. tostring(self.lognum - 1);
 
 	-- When the ending land platform touched, update respawn point
