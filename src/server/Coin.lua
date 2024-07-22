@@ -22,8 +22,8 @@ function Coin:createCoinInstance()
     coin.Name = "Coin"
     coin.Size = Vector3.new(2, 2, 2)
     coin.Position = self.position
-    coin.Anchored = false
-    coin.CanCollide = true
+    coin.Anchored = true 
+    coin.CanCollide = false
     coin.BrickColor = BrickColor.new("Bright yellow")
     coin.Parent = Workspace
     return coin

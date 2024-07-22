@@ -73,7 +73,6 @@ function PlayerModule.restartTimer(player)
 
     player.CharacterAdded:Connect(function(character)
         humanoid = character:WaitForChild("Humanoid")
-        print(player.Name .. "'s character landed.\n\n")
 
         screenGui, timeLabel = setupClockGui(player)
 
@@ -110,7 +109,6 @@ Players.PlayerAdded:Connect(function(player)
 
     player.CharacterAdded:Connect(function(character)
         humanoid = character:WaitForChild("Humanoid")
-        print(player.Name .. "'s character loaded.")
 
         screenGui, timeLabel = setupClockGui(player)
 

@@ -30,7 +30,6 @@ local function setupControlGui(player)
         button.TextScaled = true
         button.Parent = screenGui
         buttons[key] = button
-        print("Created button for key: " .. key) -- Debug statement
     end
 
     return screenGui, buttons
@@ -47,7 +46,6 @@ local function incrementScore(player)
 end
 
 local function handleInput(player, screenGui, buttons)
-    print("Handling input for: " .. player.Name)
 
     local pressedKeys = {W = false, A = false, S = false, D = false, Space = false}
 
@@ -63,24 +61,18 @@ local function handleInput(player, screenGui, buttons)
     UserInputService.InputBegan:Connect(function(input, gameProcessed)
         if gameProcessed then return end
 
-        print("Input detected")
-
         if input.UserInputType == Enum.UserInputType.Keyboard then
             local key = input.KeyCode.Name
-            print("Input Key: " .. key)
 
             if pressedKeys[key] ~= nil then
-                print("Key is in pressedKeys")
                 buttons[key].BackgroundColor3 = Color3.new(0, 1, 0)
                 pressedKeys[key] = true
             end
 
             if allKeysPressed() then
                 screenGui.Enabled = false -- Hide the UI
-                print("All keys pressed. Hiding UI.")
 
                 if key == "Space" then
-                    print("Space input detected: " .. key)
 
                     local character = player.Character
                     local humanoid = character and character:FindFirstChild("Humanoid")
@@ -97,14 +89,8 @@ end
 
 function module.captureInput()
     local player = Players.LocalPlayer
-    print("Testing input for: " .. player.Name)
 
     local screenGui, buttons = setupControlGui(player)
-    if screenGui and buttons then
-        print("ScreenGui and buttons setup complete") -- Debug statement
-    else
-        warn("Failed to setup ScreenGui or buttons") -- Debug statement
-    end
 
     handleInput(player, screenGui, buttons)
 end
