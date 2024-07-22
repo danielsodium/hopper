@@ -11,7 +11,7 @@ function LevelGen.new(startX, startY, startZ, levels)
     self.startX = startX or 0
     self.startY = startY or 0
     self.startZ = startZ or 0
-    self.levels = levels or 5
+    self.levels = levels or 10 
 
     self.levelInstances = {}
     
@@ -26,7 +26,7 @@ function LevelGen:generateLevels()
     for i = 0, self.levels - 1 do
         local level = Level.new(self.startX, self.startY, z, i+2)
         table.insert(self.levelInstances, level)
-		z += 10*i + 50;
+		z += 10*i + 50 +20;
     end
 end
 

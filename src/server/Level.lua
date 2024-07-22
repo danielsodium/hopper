@@ -36,7 +36,7 @@ function Level:createTerrain()
     startPlatform.Position = Vector3.new(self.x, self.y, self.z + self.start_platform_size/2)
     startPlatform.Anchored = true
     startPlatform.Parent = workspace
-	startPlatform.BrickColor = BrickColor.new("Sea green")
+	startPlatform.Color  = Color3.fromRGB(math.random(1,255),math.random(1,255),math.random(1,255))
 	startPlatform.TopSurface = Enum.SurfaceType.Smooth
 	startPlatform.BottomSurface = Enum.SurfaceType.Smooth
 	startPlatform.LeftSurface = Enum.SurfaceType.Smooth
@@ -77,8 +77,6 @@ function Level:createTerrain()
 	
 		if player then
 			local score = player:FindFirstChild("leaderstats"):FindFirstChild("Levels")
-			-- reset timer when reached a new check poinnt
-			-- Timer.restartTimer(player);
 
 			if (score.Value < self.lognum-1) then
 				score.Value = self.lognum-1
