@@ -2,6 +2,7 @@ local TweenService = game:GetService("TweenService")
 local ServerStorage = game:GetService("ServerStorage")
 local Random = Random.new()  -- Create a Random object for randomness
 local Players = game:GetService("Players")
+local Coin = require(game.ServerScriptService.Server.Coin)
 
 local Log = {}
 Log.__index = Log
@@ -18,24 +19,7 @@ function Log.new(x, y, z, speed, destroyX)
     
     -- Set color with 50% chance to be blue
     if Random:NextNumber() < 0.5 then
-        self.part.BrickColor = BrickColor.new("Bright blue")
-        -- Add Touched event listener for blue logs
-        self.touched = false  -- Flag to ensure action is performed only once
-        self.part.Touched:Connect(function(hit)
-            if not self.touched and hit.Parent:FindFirstChildOfClass("Humanoid") then
-                local player = Players:GetPlayerFromCharacter(hit.Parent)
-                if player then
-                    local leaderstats = player:FindFirstChild("leaderstats")
-                    if leaderstats then
-                        local levels = leaderstats:FindFirstChild("Coins")
-                        if levels then
-                            levels.Value = levels.Value + 1  -- Increment the Levels stat
-                        end
-                    end
-                end
-                self.touched = true
-            end
-        end)
+		self.coin = Coin.new(self.part.Position, speed, destroyX);
     else
         self.part.BrickColor = BrickColor.new("Brown")  -- Use a different color or keep it as the default
     end
@@ -67,6 +51,9 @@ end
 
 -- Method to destroy the log and clean up
 function Log:destroy()
+	if self.coin then
+		self.coin:destroy()
+	end
     if self.part then
         self.part:Destroy()
     end

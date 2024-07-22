@@ -2,7 +2,7 @@ local Players = game:GetService("Players")
 
 local PlayerModule = {} -- Create a table to hold the module functions
 
-local time = 30
+local time = 300
 
 local function setupClockGui(player)
     -- Create a ScreenGui and TextLabel for displaying the time
@@ -24,7 +24,7 @@ local function setupClockGui(player)
     textLabel.Parent = screenGui
 
     -- Default Text
-    textLabel.Text = string.format("Link Start")
+    textLabel.Text = string.format("Level Start")
 
     return screenGui, textLabel
 end
@@ -70,7 +70,6 @@ local timeValue
 local humanoid
 
 function PlayerModule.restartTimer(player) 
-    print("Player added: " .. player.Name)
 
     player.CharacterAdded:Connect(function(character)
         humanoid = character:WaitForChild("Humanoid")
