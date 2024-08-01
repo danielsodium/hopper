@@ -15,7 +15,6 @@ function TutorialLevel.new(x, y, z)
     setmetatable(self, TutorialLevel)
     
     self:createTutorial()
-    self:activateCaptureInput()
 
     return self
 end
@@ -25,17 +24,5 @@ function TutorialLevel:createTutorial()
     sign.Parent = workspace
     sign:MoveTo(Vector3.new(-25, 12, 28))
 end
-
-function TutorialLevel:activateCaptureInput()
-    if firstClear then
-        if activateTutorialInputEvent then
-            activateTutorialInputEvent:FireAllClients()
-        else
-            warn("ActivateTutorialInput RemoteEvent not found in ReplicatedStorage")
-        end
-        firstClear = false
-    end
-end
-
 
 return TutorialLevel

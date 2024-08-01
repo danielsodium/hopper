@@ -58,7 +58,9 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local captureInputModule = require(ReplicatedStorage:WaitForChild("Shared"):WaitForChild("captureInput"))
 
 local function onCharacterAdded(character)
-    captureInputModule.captureInput()
+    if captureInputModule.getTutorialCompleted() == false then
+        captureInputModule.captureInput()
+    end
 end
 
 local function onPlayerAdded(player)

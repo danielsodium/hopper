@@ -3,6 +3,8 @@ local UserInputService = game:GetService("UserInputService")
 
 local module = {}
 
+local tutorialCompleted = false
+
 local function setupControlGui(player)
     -- Create a ScreenGui and buttons for WASD and Space controls
     local screenGui = Instance.new("ScreenGui")
@@ -71,7 +73,7 @@ local function handleInput(player, screenGui, buttons)
 
             if allKeysPressed() then
                 screenGui.Enabled = false -- Hide the UI
-
+                tutorialCompleted = true
                 if key == "Space" then
 
                     local character = player.Character
@@ -93,6 +95,10 @@ function module.captureInput()
     local screenGui, buttons = setupControlGui(player)
 
     handleInput(player, screenGui, buttons)
+end
+
+function module.getTutorialCompleted()
+    return tutorialCompleted
 end
 
 return module

@@ -34,6 +34,7 @@ local function startTimer(player, timeValue, screenGui, timeLabel)
     timeValue.Value = timeLimit
 
     local timerCoroutine = coroutine.create(function()
+        
         while timeLimit > 0 do
             task.wait(1)
 
@@ -68,34 +69,6 @@ local screenGui, timeLabel
 local currentTimerCoroutine
 local timeValue
 local humanoid
-
-function PlayerModule.restartTimer(player) 
-
-    player.CharacterAdded:Connect(function(character)
-        humanoid = character:WaitForChild("Humanoid")
-
-        screenGui, timeLabel = setupClockGui(player)
-
-        timeValue.Value = time
-
-        if currentTimerCoroutine and coroutine.status(currentTimerCoroutine) == "suspended" then
-            coroutine.close(currentTimerCoroutine)
-        end
-        
-        currentTimerCoroutine = startTimer(player, timeValue, screenGui, timeLabel)
-
-        humanoid.Died:Connect(function()
-
-            screenGui:Destroy()
-
-            if currentTimerCoroutine and coroutine.status(currentTimerCoroutine) == "running" then
-                coroutine.yield(currentTimerCoroutine)
-            end
-
-        end)
-    end)
-
-end
 
 Players.PlayerAdded:Connect(function(player)
     -- print("Player added: " .. player.Name)
