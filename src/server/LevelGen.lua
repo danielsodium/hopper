@@ -11,7 +11,7 @@ function LevelGen.new(startX, startY, startZ, levels)
     self.startX = startX or 0
     self.startY = startY or 0
     self.startZ = startZ or 0
-    self.levels = levels or 10 
+    self.levels = levels or 20
 
     self.levelInstances = {}
     
