@@ -37,7 +37,10 @@ function Water:createWaterDeathZone(position, size)
         for _, part in pairs(parts) do
             local character = part.Parent
             if character and character:FindFirstChild("Humanoid") then
-                character.Humanoid.Health = 0
+                local humanoid = character.Humanoid
+                if not humanoid:GetAttribute("Invincible") then
+                    humanoid.Health = 0
+                end
             end
         end
     end)

@@ -3,6 +3,8 @@ local ServerStorage = game:GetService("ServerStorage")
 local Random = Random.new()  -- Create a Random object for randomness
 local Players = game:GetService("Players")
 local Coin = require(game.ServerScriptService.Server.Coin)
+local Invincible = require(game.ServerScriptService.Server.Invincible)
+local Superjump = require(game.ServerScriptService.Server.Superjump)
 
 local Log = {}
 Log.__index = Log
@@ -17,10 +19,17 @@ function Log.new(x, y, z, speed, destroyX)
     self.part.Anchored = true
     self.part.Parent = workspace
     
+    local num = Random:NextNumber() 
     -- Set color with 50% chance to be blue
-    if Random:NextNumber() < 0.5 then
-		self.coin = Coin.new(self.part.Position, speed, destroyX);
-    else
+    if num < 0.35 then
+		self.coin = Coin.new(self.part.Position, speed, destroyX)
+    elseif num < 0.40 then 
+        self.Invincible = Invincible.new(self.part.Position, speed, destroyX)
+        self.part.BrickColor = BrickColor.new("Blue")
+    elseif num < 0.50 then
+        self.Superjump = Superjump.new(self.part.Position, speed, destroyX)
+        self.part.BrickColor = BrickColor.new("Black")
+    else 
         self.part.BrickColor = BrickColor.new("Brown")  -- Use a different color or keep it as the default
     end
     
@@ -53,7 +62,12 @@ end
 function Log:destroy()
 	if self.coin then
 		self.coin:destroy()
-	end
+    elseif self.Invincible then
+        self.Invincible:destroy()
+    elseif self.Superjump then
+        self.Superjump:destroy()
+    end
+    
     if self.part then
         self.part:Destroy()
     end
