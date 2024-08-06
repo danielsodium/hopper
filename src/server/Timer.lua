@@ -4,6 +4,8 @@ local PlayerModule = {} -- Create a table to hold the module functions
 
 local time = 300
 
+PlayerModule.paused = 0
+
 local function setupClockGui(player)
     -- Create a ScreenGui and TextLabel for displaying the time
     local screenGui = Instance.new("ScreenGui")
@@ -36,14 +38,16 @@ local function startTimer(player, timeValue, screenGui, timeLabel)
     local timerCoroutine = coroutine.create(function()
         
         while timeLimit > 0 do
-            task.wait(1)
+            if PlayerModule.paused == 0 then
+                task.wait(1)
 
-            timeLimit -= 1
-            timeValue.Value = timeLimit
+                timeLimit -= 1
+                timeValue.Value = timeLimit
 
-            timeLabel.Text = string.format("%d seconds remaining", timeLimit)
+                timeLabel.Text = string.format("%d seconds remaining", timeLimit)
 
-            -- print(string.format("%d seconds remaining for %s", timeLimit, player.Name))
+                -- print(string.format("%d seconds remaining for %s", timeLimit, player.Name))
+            end
         end
 
         if timeLimit <= 0 then
@@ -54,7 +58,6 @@ local function startTimer(player, timeValue, screenGui, timeLabel)
                 humanoid.Health = 0
                 -- print("Time's up! " .. player.Name .. " has been killed.")
             end
-
             timeLabel.Text = "Time's up!"
             screenGui:Destroy()
         end
