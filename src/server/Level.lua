@@ -4,6 +4,10 @@ local Players = game:GetService("Players")
 local Workspace = game:GetService("Workspace")
 local Water = require(game.ServerScriptService.Server.Water)
 local LogGen = require(game.ServerScriptService.Server.LogGen)
+local TimerManager = require(game.ServerScriptService.Server.TimerManager)
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local PauseEvent = ReplicatedStorage:WaitForChild("PauseEvent")
 
 local Level = {}
 Level.__index = Level
@@ -78,6 +82,7 @@ function Level:createTerrain()
 			local score = player:FindFirstChild("leaderstats"):FindFirstChild("Levels")
 
 			if (score.Value < self.lognum-1) then
+				TimerManager.resetTimer(player)
 				score.Value = self.lognum-1
 			end
 			-- Set the respawn location to this part's position

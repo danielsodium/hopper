@@ -32,6 +32,10 @@ function Timer:unpause()
     self.isPaused = false
 end
 
+function Timer:reset()
+	self.remainingTime = self.duration
+end
+
 function Timer:_run()
     while self.isRunning and self.remainingTime > 0 do
         if not self.isPaused then
@@ -48,6 +52,7 @@ function Timer:_run()
 		if humanoid and humanoid.Parent then
 			humanoid.Health = 0
 		end
+		self.remainingTime = self.duration
         self.isRunning = false
     end
 end
