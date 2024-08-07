@@ -32,7 +32,10 @@ Players.PlayerAdded:Connect(onPlayerAdded)
 
 LevelTeleportEvent.OnServerEvent:Connect(function(player, level)
 	local tpLocation = workspace.LevelTeleports:FindFirstChild("Level" .. level)
-	player.position = tpLocation.position
+	local character = player.Character
+    if character and character:FindFirstChild("HumanoidRootPart") then
+        character.HumanoidRootPart.CFrame = tpLocation.CFrame * CFrame.Angles(math.rad(180), math.rad(180), 0)
+    end
 end)
 
 TutorialLevel.new(0, 0, 0)
