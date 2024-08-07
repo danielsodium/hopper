@@ -4,7 +4,11 @@ local PlayerModule = {} -- Create a table to hold the module functions
 
 local time = 300
 
-PlayerModule.paused = 0
+PlayerModule.paused = false
+
+function PlayerModule.changePause()
+    PlayerModule.paused = not PlayerModule.paused
+end
 
 local function setupClockGui(player)
     -- Create a ScreenGui and TextLabel for displaying the time
@@ -37,16 +41,16 @@ local function startTimer(player, timeValue, screenGui, timeLabel)
 
     local timerCoroutine = coroutine.create(function()
         
-        while timeLimit > 0 do
-            if PlayerModule.paused == 0 then
+        while timeLimit > 0 and do
+            if not PlayerModule.paused then
                 task.wait(1)
-
                 timeLimit -= 1
                 timeValue.Value = timeLimit
-
                 timeLabel.Text = string.format("%d seconds remaining", timeLimit)
 
                 -- print(string.format("%d seconds remaining for %s", timeLimit, player.Name))
+            else
+                task.wait(1)
             end
         end
 
