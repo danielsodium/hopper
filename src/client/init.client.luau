@@ -76,4 +76,3 @@ Players.PlayerAdded:Connect(onPlayerAdded)
 if Players.LocalPlayer then
     onPlayerAdded(Players.LocalPlayer)
 end
-

@@ -2,7 +2,6 @@ local Level = require(game.ServerScriptService.Server.Level)
 
 local LevelGen = {}
 LevelGen.__index = LevelGen
-local Timer = require(game.ReplicatedStorage.Shared.Timer)
 
 
 function LevelGen.new(startX, startY, startZ, levels)
