@@ -47,4 +47,16 @@ function Leaderboard:onPlayerAdded(player)
     
 end
 
+function Leaderboard:getPlayerLevel(player)
+    local leaderstats = player:FindFirstChild("leaderstats")
+    if leaderstats then
+        local levels = leaderstats:FindFirstChild("Levels")
+        if levels then
+            return levels.Value
+        end
+    end
+    return 0
+end
+
+
 return Leaderboard
