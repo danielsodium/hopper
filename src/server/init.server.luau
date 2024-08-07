@@ -4,7 +4,8 @@ local TutorialLevel = require(game.ServerScriptService.Server.TutorialLevel)
 local LevelGen = require(game.ServerScriptService.Server.LevelGen)
 local Leaderboard = require(game.ServerScriptService.Server.Leaderboard)
 local TimerManager = require(game.ServerScriptService.Server.TimerManager)
-
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local LevelTeleportEvent = ReplicatedStorage:WaitForChild("LevelTeleportEvent")
 -- Create a new leaderboard instance
 local leaderboard = Leaderboard.new()
 -- Shorten Respawn Time
@@ -28,6 +29,11 @@ local function onPlayerAdded(player)
 end
 
 Players.PlayerAdded:Connect(onPlayerAdded)
+
+LevelTeleportEvent.OnServerEvent:Connect(function(player, level)
+	local tpLocation = workspace.LevelTeleports:FindFirstChild("Level" .. level)
+	player.position = tpLocation.position
+end)
 
 TutorialLevel.new(0, 0, 0)
 -- Level.new(0, 0, 300)
