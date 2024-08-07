@@ -2,6 +2,9 @@ local ServerStorage = game:GetService("ServerStorage")
 local RunService = game:GetService("RunService")
 local Terrain = workspace.Terrain
 
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local TimerManager = require(game.ServerScriptService.Server.TimerManager)
 local Water = {}
 Water.__index = Water
 
@@ -40,6 +43,9 @@ function Water:createWaterDeathZone(position, size)
                 local humanoid = character.Humanoid
                 if not humanoid:GetAttribute("Invincible") then
                     humanoid.Health = 0
+
+					local player = Players:GetPlayerFromCharacter(character)
+					TimerManager.resetTimer(player)
                 end
             end
         end

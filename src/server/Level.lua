@@ -7,7 +7,6 @@ local LogGen = require(game.ServerScriptService.Server.LogGen)
 local TimerManager = require(game.ServerScriptService.Server.TimerManager)
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local PauseEvent = ReplicatedStorage:WaitForChild("PauseEvent")
 
 local Level = {}
 Level.__index = Level
