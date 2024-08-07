@@ -19,7 +19,7 @@ local function onPlayerAdded(player)
 		local levelNum = player:FindFirstChild("leaderstats"):FindFirstChild("Levels").Value
         local spawnLocation = workspace.LevelTeleports:FindFirstChild("TutorialSpawn")
 		if (levelNum ~= 0) then
-			local ltp = "Level" .. levelNum
+			local ltp = "Level" .. (levelNum-1)
 			spawnLocation = workspace.LevelTeleports:FindFirstChild(ltp)
 		end
         if spawnLocation then
@@ -31,7 +31,7 @@ end
 Players.PlayerAdded:Connect(onPlayerAdded)
 
 LevelTeleportEvent.OnServerEvent:Connect(function(player, level)
-	local tpLocation = workspace.LevelTeleports:FindFirstChild("Level" .. level)
+	local tpLocation = workspace.LevelTeleports:FindFirstChild("Level" .. (level-1))
 	local character = player.Character
     if character and character:FindFirstChild("HumanoidRootPart") then
         character.HumanoidRootPart.CFrame = tpLocation.CFrame * CFrame.Angles(math.rad(180), math.rad(180), 0)
