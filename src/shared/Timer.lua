@@ -41,7 +41,7 @@ local function startTimer(player, timeValue, screenGui, timeLabel)
 
     local timerCoroutine = coroutine.create(function()
         
-        while timeLimit > 0 and do
+        while timeLimit > 0 do
             if not PlayerModule.paused then
                 task.wait(1)
                 timeLimit -= 1

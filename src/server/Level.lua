@@ -69,7 +69,6 @@ function Level:createTerrain()
 	teleporter.Transparency = 1;
 	teleporter.Orientation = Vector3.new(180,0,0)
 	teleporter.Name = "Level" .. tostring(self.lognum - 1);
-	end
 	-- When the ending land platform touched, update respawn point
 	local function onTouch(otherPart)
 		local character = otherPart.Parent
