@@ -7,7 +7,6 @@ local LogGen = require(game.ServerScriptService.Server.LogGen)
 
 local Level = {}
 Level.__index = Level
-Level.teleMap = {}
 
 function Level.new(x, y, z, lognum)
     local self = setmetatable({}, Level)
@@ -70,12 +69,6 @@ function Level:createTerrain()
 	teleporter.Transparency = 1;
 	teleporter.Orientation = Vector3.new(180,0,0)
 	teleporter.Name = "Level" .. tostring(self.lognum - 1);
-	if self.lognum < 11 then
-		Level.teleMap[tostring(self.lognum-1)] = {
-			x = self.x,
-			y = (self.y+20),
-			z = self.z,
-		}
 	end
 	-- When the ending land platform touched, update respawn point
 	local function onTouch(otherPart)
