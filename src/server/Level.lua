@@ -80,9 +80,9 @@ function Level:createTerrain()
 		if player then
 			local score = player:FindFirstChild("leaderstats"):FindFirstChild("Levels")
 
-			if (score.Value < self.lognum-1) then
+			if (score.Value < self.lognum) then
 				TimerManager.resetTimer(player)
-				score.Value = self.lognum-1
+				score.Value = self.lognum
 			end
 			-- Set the respawn location to this part's position
 			player.RespawnLocation = teleporter;

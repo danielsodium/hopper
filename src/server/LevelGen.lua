@@ -3,7 +3,6 @@ local Level = require(game.ServerScriptService.Server.Level)
 local LevelGen = {}
 LevelGen.__index = LevelGen
 
-
 function LevelGen.new(startX, startY, startZ, levels)
     local self = setmetatable({}, LevelGen)
     
@@ -22,10 +21,10 @@ end
 -- Method to generate levels
 function LevelGen:generateLevels()
 	local z = self.startZ;
-    for i = 0, self.levels - 1 do
-        local level = Level.new(self.startX, self.startY, z, i+2)
+    for i = 1, self.levels - 1 do
+        local level = Level.new(self.startX, self.startY, z, i+1)
         table.insert(self.levelInstances, level)
-		z += 10*i + 50 +20;
+		z += 10*i + 50 + 10;
     end
 end
 
