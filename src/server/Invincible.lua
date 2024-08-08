@@ -7,7 +7,7 @@ local Invincible = {}
 Invincible.__index = Invincible
 
 local BadgeService = game:GetService("BadgeService")
-local badgeId_invincibility = 279711167868292
+local badgeId_invincibility = 2853818019097464
 
 local invincibleTime = 10
 

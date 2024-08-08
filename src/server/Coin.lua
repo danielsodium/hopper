@@ -4,7 +4,7 @@ local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
 
 local BadgeService = game:GetService("BadgeService")
-local badgeId_coin = 3492462637999595
+local badgeId_coin = 625806392601762
 
 local Coin = {}
 Coin.__index = Coin

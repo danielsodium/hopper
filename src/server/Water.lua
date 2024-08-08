@@ -6,7 +6,7 @@ local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local TimerManager = require(game.ServerScriptService.Server.TimerManager)
 local BadgeService = game:GetService("BadgeService")
-local BADGE_killed_by_water = 911290738050139
+local BADGE_killed_by_water = 3241773550132668
 local Water = {}
 Water.__index = Water
 

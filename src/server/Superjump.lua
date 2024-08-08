@@ -3,7 +3,7 @@ local Players = game:GetService("Players")
 
 local TweenService = game:GetService("TweenService")
 local BadgeService = game:GetService("BadgeService")
-local badgeId_super_jump = 877021050023259
+local badgeId_super_jump = 3926353098697598
 
 local Superjump = {}
 Superjump.__index = Superjump
