@@ -6,7 +6,7 @@ function Timer.new(player, duration)
     self.duration = duration
 	self.player = player
     self.remainingTime = duration
-    self.isPaused = false
+    self.isPaused = true
     self.isRunning = false
 	self.updateEvent = Instance.new("BindableEvent")
     return self
@@ -19,7 +19,7 @@ end
 function Timer:start()
     if not self.isRunning then
         self.isRunning = true
-        self.isPaused = false
+        self.isPaused = true
         coroutine.wrap(function() self:_run() end)()
     end
 end
