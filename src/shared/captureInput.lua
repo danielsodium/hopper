@@ -4,6 +4,7 @@ local UserInputService = game:GetService("UserInputService")
 local module = {}
 
 local tutorialCompleted = false
+local NotInitiated = true
 
 local function setupControlGui(player)
     -- Create a ScreenGui and buttons for WASD and Space controls
@@ -11,7 +12,6 @@ local function setupControlGui(player)
     screenGui.Name = "ControlGui"
     screenGui.ResetOnSpawn = false
     screenGui.Parent = player:WaitForChild("PlayerGui")
-
     local buttons = {}
     local keys = {"W", "A", "S", "D", "Space"}
     local positions = {
@@ -100,11 +100,14 @@ local function handleInput(player, screenGui, buttons)
 end
 
 function module.captureInput()
-    local player = Players.LocalPlayer
+    if (NotInitiated) then
+        local player = Players.LocalPlayer
 
-    local screenGui, buttons = setupControlGui(player)
-
-    handleInput(player, screenGui, buttons)
+        local screenGui, buttons = setupControlGui(player)
+    
+        handleInput(player, screenGui, buttons)
+        NotInitiated = false
+    end
 end
 
 function module.getTutorialCompleted()
