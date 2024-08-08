@@ -15,22 +15,31 @@ local function setupControlGui(player)
     local buttons = {}
     local keys = {"W", "A", "S", "D", "Space"}
     local positions = {
-        W = UDim2.new(0.14, 0, 0.68, 0),
-        A = UDim2.new(0.08, 0, 0.75, 0),
-        S = UDim2.new(0.14, 0, 0.75, 0),
-        D = UDim2.new(0.20, 0, 0.75, 0),
-        Space = UDim2.new(0.14, 0, 0.82, 0)
+        W = UDim2.new(0.11, 0, 0.68, 0),
+        A = UDim2.new(0.02, 0, 0.78, 0),
+        S = UDim2.new(0.11, 0, 0.78, 0),
+        D = UDim2.new(0.20, 0, 0.78, 0),
+        Space = UDim2.new(0.11, 0, 0.88, 0)
     }
 
     for _, key in ipairs(keys) do
         local button = Instance.new("TextButton")
         button.Name = key .. "Button"
-        button.Size = UDim2.new(0.05, 0, 0.05, 0)
+        button.Size = UDim2.new(0.07, 0, 0.07, 0)
         button.Position = positions[key]
-        button.BackgroundColor3 = Color3.new(1, 1, 1)
         button.Text = key
         button.TextScaled = true
         button.Parent = screenGui
+        button.BackgroundColor3 = Color3.fromRGB(0, 0, 0)  
+		button.BackgroundTransparency = 0.5               
+		button.BorderColor3 = Color3.fromRGB(0, 0, 0)      
+		button.BorderSizePixel = 0.5
+		button.TextColor3 = Color3.fromRGB(255, 255, 255) 
+        local uiCorner = Instance.new("UICorner")
+        uiCorner.CornerRadius = UDim.new(0.3, 0)
+        uiCorner.Parent = button
+
+
         buttons[key] = button
     end
 
@@ -67,6 +76,7 @@ local function handleInput(player, screenGui, buttons)
             local key = input.KeyCode.Name
 
             if pressedKeys[key] ~= nil then
+                buttons[key].TextColor3 = Color3.fromRGB(255, 255, 255) 
                 buttons[key].BackgroundColor3 = Color3.new(0, 1, 0)
                 pressedKeys[key] = true
             end
