@@ -5,6 +5,8 @@ local Terrain = workspace.Terrain
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local TimerManager = require(game.ServerScriptService.Server.TimerManager)
+local BadgeService = game:GetService("BadgeService")
+local BADGE_killed_by_water = 911290738050139
 local Water = {}
 Water.__index = Water
 
@@ -46,6 +48,9 @@ function Water:createWaterDeathZone(position, size)
 
 					local player = Players:GetPlayerFromCharacter(character)
 					TimerManager.resetTimer(player)
+
+                    -- award Badge the Water is Poisonous
+                    BadgeService:AwardBadge(player.UserId, BADGE_killed_by_water)
                 end
             end
         end

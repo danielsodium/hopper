@@ -6,6 +6,9 @@ local TweenService = game:GetService("TweenService")
 local Invincible = {}
 Invincible.__index = Invincible
 
+local BadgeService = game:GetService("BadgeService")
+local badgeId_invincibility = 279711167868292
+
 local invincibleTime = 10
 
 function Invincible.new(position, speed, destroyX)
@@ -55,6 +58,9 @@ function Invincible:setupTouchEvent()
             local player = Players:GetPlayerFromCharacter(character)
             if player then
                 self:giveInvincibility(character)
+                -- award badge to invincibility
+                BadgeService:AwardBadge(player.UserId, badgeId_invincibility)
+                print("userId: ", player.UserId)
             end
         end
     end)

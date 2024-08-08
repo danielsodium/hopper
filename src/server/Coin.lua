@@ -3,6 +3,9 @@ local Players = game:GetService("Players")
 
 local TweenService = game:GetService("TweenService")
 
+local BadgeService = game:GetService("BadgeService")
+local badgeId_coin = 3492462637999595
+
 local Coin = {}
 Coin.__index = Coin
 
@@ -56,6 +59,10 @@ function Coin:setupTouchEvent()
 					local levels = leaderstats:FindFirstChild("Coins")
 					if levels then
 						levels.Value = levels.Value + 1  -- Increment the Levels stat
+                        if levels.Value >= 5 then
+                            -- award badge to 5 coins
+                            BadgeService:AwardBadge(player.UserId, badgeId_coin)
+                        end
 					end
 				end
 			end

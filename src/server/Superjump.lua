@@ -2,6 +2,8 @@ local Workspace = game:GetService("Workspace")
 local Players = game:GetService("Players")
 
 local TweenService = game:GetService("TweenService")
+local BadgeService = game:GetService("BadgeService")
+local badgeId_super_jump = 877021050023259
 
 local Superjump = {}
 Superjump.__index = Superjump
@@ -53,6 +55,8 @@ function Superjump:setupTouchEvent()
             local player = Players:GetPlayerFromCharacter(character)
             if player then
                 self:giveInvincibility(character)
+                -- award badge to super jump
+                BadgeService:AwardBadge(player.UserId, badgeId_super_jump)
             end
         end
     end)
