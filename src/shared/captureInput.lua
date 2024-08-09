@@ -6,8 +6,8 @@ local module = {}
 local tutorialCompleted = false
 local NotInitiated = true
 
+-- Create a ScreenGui and buttons for WASD and Space controls for selected player
 local function setupControlGui(player)
-    -- Create a ScreenGui and buttons for WASD and Space controls
     local screenGui = Instance.new("ScreenGui")
     screenGui.Name = "ControlGui"
     screenGui.ResetOnSpawn = false
@@ -46,16 +46,7 @@ local function setupControlGui(player)
     return screenGui, buttons
 end
 
-local function incrementScore(player)
-    local leaderstats = player:FindFirstChild("leaderstats")
-    if leaderstats then
-        local score = leaderstats:FindFirstChild("Score")
-        if score then
-            score.Value = score.Value + 1
-        end
-    end
-end
-
+-- Update tutorial movement base on player input
 local function handleInput(player, screenGui, buttons)
 
     local pressedKeys = {W = false, A = false, S = false, D = false, Space = false}
@@ -69,6 +60,7 @@ local function handleInput(player, screenGui, buttons)
         return true
     end
 
+    -- Connect input to UI
     UserInputService.InputBegan:Connect(function(input, gameProcessed)
         if gameProcessed then return end
 
@@ -80,7 +72,8 @@ local function handleInput(player, screenGui, buttons)
                 buttons[key].BackgroundColor3 = Color3.new(0, 1, 0)
                 pressedKeys[key] = true
             end
-
+            
+            -- If all keys for tutorial movement are pressed, hide it
             if allKeysPressed() then
                 screenGui.Enabled = false -- Hide the UI
                 tutorialCompleted = true
@@ -92,13 +85,13 @@ local function handleInput(player, screenGui, buttons)
                         humanoid.Jump = true
                     end
 
-                    incrementScore(player) -- Increment score when Space is pressed
                 end
             end
         end
     end)
 end
 
+-- Method to begin input Capture
 function module.captureInput()
     if (NotInitiated) then
         local player = Players.LocalPlayer
@@ -110,6 +103,7 @@ function module.captureInput()
     end
 end
 
+-- Check if movement tutorial is completed or not
 function module.getTutorialCompleted()
     return tutorialCompleted
 end
