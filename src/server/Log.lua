@@ -19,6 +19,7 @@ function Log.new(x, y, z, speed, destroyX)
     self.part.Anchored = true
     self.part.Parent = workspace
     
+    -- Randomly generate different log (normal, with coin, invincibility, super jump)
     local num = Random:NextNumber() 
     -- Set color with 50% chance to be blue
     if num < 0.35 then
@@ -30,7 +31,7 @@ function Log.new(x, y, z, speed, destroyX)
         self.Superjump = Superjump.new(self.part.Position, speed, destroyX)
         self.part.BrickColor = BrickColor.new("Black")
     else 
-        self.part.BrickColor = BrickColor.new("Brown")  -- Use a different color or keep it as the default
+        self.part.BrickColor = BrickColor.new("Brown") 
     end
     
     -- Store parameters

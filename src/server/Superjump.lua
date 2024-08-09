@@ -8,18 +8,20 @@ local badgeId_super_jump = 3926353098697598
 local Superjump = {}
 Superjump.__index = Superjump
 
+-- Constructor of super jump object
 function Superjump.new(position, speed, destroyX)
     local self = setmetatable({}, Superjump)
     self.position = Vector3.new(position.x, position.y + 2, position.z);
     self.speed = speed 
 	self.destroyX = destroyX
-    self.part = self:createCoinInstance()
+    self.part = self:createPowerUpInstance()
     self:applyVelocity()
     self:setupTouchEvent()
     return self
 end
 
-function Superjump:createCoinInstance()
+-- Constructor of super jump instance
+function Superjump:createPowerUpInstance()
     local Superjump = Instance.new("Part")
     Superjump.Name = "Superjump"
     Superjump.Size = Vector3.new(2, 2, 2)
@@ -31,6 +33,7 @@ function Superjump:createCoinInstance()
     return Superjump
 end
 
+-- Apply movement to the part
 function Superjump:applyVelocity()
     local goal = { Position = Vector3.new(self.destroyX, self.part.Position.Y, self.part.Position.Z) }
     local distance = math.abs(self.destroyX - self.part.Position.X)
@@ -46,15 +49,17 @@ function Superjump:applyVelocity()
 end
 
 
-
+-- Touch Event when player touched super jump
 function Superjump:setupTouchEvent()
     self.part.Touched:Connect(function(hit)
         local character = hit.Parent
         if character and character:FindFirstChild("Humanoid") then
+            -- Destroy the super jump object from the game
             self:destroy()
             local player = Players:GetPlayerFromCharacter(character)
             if player then
-                self:giveInvincibility(character)
+                -- Activate super jump
+                self:giveSuperJump(character)
                 -- award badge to super jump
                 BadgeService:AwardBadge(player.UserId, badgeId_super_jump)
             end
@@ -62,7 +67,8 @@ function Superjump:setupTouchEvent()
     end)
 end
 
-function Superjump:giveInvincibility(character)
+-- Give player character to super jump
+function Superjump:giveSuperJump(character)
     local humanoid = character:FindFirstChild("Humanoid")
     if humanoid then
         local origJumpPower = humanoid.JumpPower
@@ -74,7 +80,7 @@ function Superjump:giveInvincibility(character)
     end
 end
 
-
+-- Destroyer
 function Superjump:destroy()
     if self.part then
         self.part:Destroy()

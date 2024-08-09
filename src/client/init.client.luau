@@ -55,24 +55,32 @@ end
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
+-- Import the captureInput module from ReplicatedStorage
 local captureInputModule = require(ReplicatedStorage:WaitForChild("Shared"):WaitForChild("captureInput"))
 
+-- Function to handle character addition for a player
+-- Capture input if the tutorial is incomplete
 local function onCharacterAdded(character)
     if captureInputModule.getTutorialCompleted() == false then
         captureInputModule.captureInput()
     end
 end
 
+-- Function to handle player addition
+-- Check if the player already has a character loaded
 local function onPlayerAdded(player)
     player.CharacterAdded:Connect(onCharacterAdded)
+    
     if player.Character then
         onCharacterAdded(player.Character)
     end
 end
 
+-- Connect the onPlayerAdded function to the PlayerAdded event
 Players.PlayerAdded:Connect(onPlayerAdded)
 
--- For testing when the player is already in the game
+-- Check if there is a local player already present (usually happens if the script runs on the client)
 if Players.LocalPlayer then
+    -- Call onPlayerAdded directly for the LocalPlayer
     onPlayerAdded(Players.LocalPlayer)
 end
