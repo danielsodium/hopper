@@ -7,6 +7,7 @@ local TimerManager = require(game.ServerScriptService.Server.TimerManager)
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local LevelTeleportEvent = ReplicatedStorage:WaitForChild("LevelTeleportEvent")
 local CheckPlayerLevel = ReplicatedStorage:WaitForChild("CheckPlayerLevel")
+local TimerManager = require(game.ServerScriptService.Server.TimerManager)
 
 -- Create a new leaderboard instance
 local leaderboard = Leaderboard.new()
@@ -49,6 +50,8 @@ CheckPlayerLevel.OnServerEvent:Connect(function(player, targetLevel)
 		local character = player.Character
 		if character and character:FindFirstChild("HumanoidRootPart") then
 			character.HumanoidRootPart.CFrame = tpLocation.CFrame * CFrame.Angles(math.rad(180), math.rad(180), 0)
+			TimerManager.resetTimer(player)
+
 		end
 	else
 		-- Player's level is not sufficient, notify the player or handle accordingly
