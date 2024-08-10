@@ -1,3 +1,4 @@
+-- Get references to required services
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
 local TutorialLevel = require(game.ServerScriptService.Server.TutorialLevel)

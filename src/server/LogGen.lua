@@ -2,6 +2,7 @@
 local Log = require(game.ServerScriptService.Server.Log)
 local RunService = game:GetService("RunService")
 
+-- Store log generation class with its methods
 local LogGen = {}
 LogGen.__index = LogGen
 

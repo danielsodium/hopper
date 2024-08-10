@@ -1,11 +1,15 @@
+-- Get references to required services
 local TweenService = game:GetService("TweenService")
 local ServerStorage = game:GetService("ServerStorage")
 local Random = Random.new()  -- Create a Random object for randomness
 local Players = game:GetService("Players")
+
+-- Required modules
 local Coin = require(game.ServerScriptService.Server.Coin)
 local Invincible = require(game.ServerScriptService.Server.Invincible)
 local Superjump = require(game.ServerScriptService.Server.Superjump)
 
+-- Store log class with its methods
 local Log = {}
 Log.__index = Log
 

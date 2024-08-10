@@ -1,3 +1,4 @@
+-- Get references to required services
 local Workspace = game:GetService("Workspace")
 local Players = game:GetService("Players")
 
@@ -5,6 +6,7 @@ local TweenService = game:GetService("TweenService")
 local BadgeService = game:GetService("BadgeService")
 local badgeId_super_jump = 3926353098697598
 
+-- Superjump class with its methods
 local Superjump = {}
 Superjump.__index = Superjump
 

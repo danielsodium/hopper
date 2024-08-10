@@ -1,11 +1,16 @@
+-- Get references to required services
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local PauseEvent = ReplicatedStorage:WaitForChild("PauseEvent")
-local Timer = require(game.ServerScriptService.Server.Timer)
 
+-- Required modules
+local Timer = require(game.ServerScriptService.Server.Timer)
+local PauseEvent = ReplicatedStorage:WaitForChild("PauseEvent")
+
+-- Timer manager with its methods
 local TimerManager = {}
 TimerManager.__index = TimerManager
 
+-- Table to store the timer for each player
 local Timers = {}
 
 local function onPlayerAdded(player)
@@ -21,6 +26,7 @@ local function onPlayerAdded(player)
     end)
 end
 
+-- Connect a function to the PauseEvent to handle pause related actions from the player
 PauseEvent.OnServerEvent:Connect(function(player, action)
     local playerTimer = Timers[player.UserId]
     if not playerTimer then return end
@@ -36,7 +42,7 @@ PauseEvent.OnServerEvent:Connect(function(player, action)
     end
 end)
 
-
+-- Function to handle the removal of a player from timer
 local function onPlayerRemoved(player)
     Timers[player.UserId] = nil
 	local updateEvent = ReplicatedStorage:FindFirstChild("UpdateTimerEvent_" .. player.UserId)
@@ -45,10 +51,12 @@ local function onPlayerRemoved(player)
     end
 end
 
+-- Function to reset timer for a player
 function TimerManager.resetTimer(player)
 	Timers[player.userId]:reset()
 end
 
+-- Function to initialize the TimerManager
 function TimerManager.new()
 	Players.PlayerAdded:Connect(onPlayerAdded)
 	Players.PlayerRemoving:Connect(onPlayerRemoved)

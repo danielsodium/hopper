@@ -1,5 +1,7 @@
+-- Get references to required services
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local player = Players.LocalPlayer
 
@@ -52,9 +54,6 @@ if player.Character then
 end
 
 -- When the player enter the game
-
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-
 -- Import the captureInput module from ReplicatedStorage
 local captureInputModule = require(ReplicatedStorage:WaitForChild("Shared"):WaitForChild("captureInput"))
 

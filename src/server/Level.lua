@@ -1,7 +1,10 @@
+-- Get references to required services
 local ServerStorage = game:GetService("ServerStorage")
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
 local Workspace = game:GetService("Workspace")
+
+-- Required modules
 local Water = require(game.ServerScriptService.Server.Water)
 local LogGen = require(game.ServerScriptService.Server.LogGen)
 local TimerManager = require(game.ServerScriptService.Server.TimerManager)
@@ -11,6 +14,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Level = {}
 Level.__index = Level
 
+-- Constructor for new level
 function Level.new(x, y, z, lognum)
     local self = setmetatable({}, Level)
 
@@ -24,6 +28,7 @@ function Level.new(x, y, z, lognum)
 
     self:createTerrain()
 
+	-- Generating logs for this level
 	for i=0,self.lognum-1 do
 		LogGen.new(3, self.x, self.y + 6, self.z + self.start_platform_size + 5+ 10*i);
 	end
@@ -31,6 +36,8 @@ function Level.new(x, y, z, lognum)
     return self
 end
 
+-- Create terrain for each level
+-- Create start platform, endplatform, spawnlocation
 function Level:createTerrain()
 
     -- Create the starting land platform

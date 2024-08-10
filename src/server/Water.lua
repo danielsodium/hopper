@@ -10,9 +10,11 @@ local BADGE_killed_by_water = 3241773550132668
 local Water = {}
 Water.__index = Water
 
+-- Constructor for water part, create a water part
 function Water.new(x, y, z, w, h, d)
     local self = setmetatable({}, Water)
 
+    -- Setting dimension for water part
     self.y = x
 	self.x = y
 	self.z = z
@@ -30,6 +32,7 @@ function Water.new(x, y, z, w, h, d)
     return self
 end
 
+-- Setting death region to water part
 function Water:createWaterDeathZone(position, size)
     local region = Region3.new(
         position - size / 2,
@@ -43,6 +46,7 @@ function Water:createWaterDeathZone(position, size)
             local character = part.Parent
             if character and character:FindFirstChild("Humanoid") then
                 local humanoid = character.Humanoid
+                -- Kill player if player does not have invincible
                 if not humanoid:GetAttribute("Invincible") then
                     humanoid.Health = 0
 

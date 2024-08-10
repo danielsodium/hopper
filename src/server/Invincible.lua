@@ -1,13 +1,13 @@
+-- Get references to required services
 local Workspace = game:GetService("Workspace")
 local Players = game:GetService("Players")
-
 local TweenService = game:GetService("TweenService")
-
-local Invincible = {}
-Invincible.__index = Invincible
-
 local BadgeService = game:GetService("BadgeService")
 local badgeId_invincibility = 2853818019097464
+
+-- Powerups that alow player to live in water for invincibleTime amount of seconds
+local Invincible = {}
+Invincible.__index = Invincible
 
 local invincibleTime = 10
 

@@ -1,7 +1,8 @@
+-- Timer object with its methods
 local Timer = {}
 Timer.__index = Timer
 
--- Constructors that create a new timer for player
+-- Constructor for timer, create a new timer for player
 function Timer.new(player, duration)
     local self = setmetatable({}, Timer)
     self.duration = duration
