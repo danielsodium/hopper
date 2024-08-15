@@ -23,7 +23,7 @@ end
 function Timer:start()
     if not self.isRunning then
         self.isRunning = true
-        self.isPaused = true
+        self.isPaused = false
         coroutine.wrap(function() self:_run() end)()
     end
 end
@@ -40,7 +40,11 @@ end
 
 -- Reset the time for timer
 function Timer:reset()
+
 	self.remainingTime = self.duration
+	self.isRunning = true
+    self.isPaused = false
+    coroutine.wrap(function() self:_run() end)()
 end
 
 -- When timer is running
