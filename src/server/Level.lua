@@ -47,6 +47,7 @@ function Level:createTerrain()
     startPlatform.Anchored = true
     startPlatform.Parent = workspace
 	startPlatform.Color  = Color3.fromRGB(math.random(1,255),math.random(1,255),math.random(1,255))
+	startPlatform.Material = Enum.Material.Grass
 	startPlatform.TopSurface = Enum.SurfaceType.Smooth
 	startPlatform.BottomSurface = Enum.SurfaceType.Smooth
 	startPlatform.LeftSurface = Enum.SurfaceType.Smooth
@@ -61,6 +62,7 @@ function Level:createTerrain()
     endPlatform.Anchored = true
     endPlatform.Parent = workspace
 	endPlatform.BrickColor = BrickColor.new("Sea green")
+	endPlatform.Material = Enum.Material.Grass
 	endPlatform.TopSurface = Enum.SurfaceType.Smooth
 	endPlatform.BottomSurface = Enum.SurfaceType.Smooth
 	endPlatform.LeftSurface = Enum.SurfaceType.Smooth

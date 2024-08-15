@@ -17,7 +17,7 @@ function Coin.new(position, speed, destroyX)
     self.speed = speed 
 	self.destroyX = destroyX
     self.part = self:createCoinInstance()
-    self:applyVelocity()
+	self:applyVelocity()
     self:setupTouchEvent()
     return self
 end
@@ -25,8 +25,10 @@ end
 -- Create coin part
 function Coin:createCoinInstance()
     local coin = Instance.new("Part")
-    coin.Name = "Coin"
-    coin.Size = Vector3.new(2, 2, 2)
+	coin.Name = "Coin"
+	coin.Shape = Enum.PartType.Cylinder
+	coin.Orientation = Vector3.new(0,90,0)
+    coin.Size = Vector3.new(0.5, 2, 2)
     coin.Position = self.position
     coin.Anchored = true 
     coin.CanCollide = false
@@ -38,7 +40,9 @@ end
 -- This set the movement of coin in the game
 function Coin:applyVelocity()
     -- setting destination of the part
-    local goal = { Position = Vector3.new(self.destroyX, self.part.Position.Y, self.part.Position.Z) }
+	local goal = {}
+	goal.Position = Vector3.new(self.destroyX, self.part.Position.Y, self.part.Position.Z)
+	goal.Orientation = Vector3.new(0, 3000, 0)
     local distance = math.abs(self.destroyX - self.part.Position.X)
     local time = distance / self.speed
     local tweenInfo = TweenInfo.new(time, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut)
@@ -49,6 +53,14 @@ function Coin:applyVelocity()
     tween.Completed:Connect(function()
         self:destroy()
     end)
+end
+
+-- This set the spin of coin in the game
+function Coin:applySpin()
+	-- setting destination of the part
+	while (1) do
+		
+	end
 end
 
 

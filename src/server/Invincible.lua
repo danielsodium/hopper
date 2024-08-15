@@ -30,9 +30,30 @@ function Invincible:createInvincibleInstance()
     Invincible.Size = Vector3.new(2, 2, 2)
     Invincible.Position = self.position
     Invincible.Anchored = true 
-    Invincible.CanCollide = false
-    Invincible.BrickColor = BrickColor.new("Bright Green")
-    Invincible.Parent = Workspace
+	Invincible.CanCollide = false
+	Invincible.TopSurface = Enum.SurfaceType.Smooth
+	Invincible.Color = Color3.new(1, 0.305882, 0.733333)
+	Invincible.Parent = Workspace
+	local texture = Instance.new("Decal")
+	texture.Parent = Invincible
+	texture.Face = Enum.NormalId.Front
+	texture.Texture = "http://www.roblox.com/asset/?id=395920626"
+	local texture1 = Instance.new("Decal")
+	texture1.Parent = Invincible
+	texture1.Face = Enum.NormalId.Top
+	texture1.Texture = "http://www.roblox.com/asset/?id=395920626"
+	local texture2 = Instance.new("Decal")
+	texture2.Parent = Invincible
+	texture2.Face = Enum.NormalId.Left
+	texture2.Texture = "http://www.roblox.com/asset/?id=395920626"
+	local texture3 = Instance.new("Decal")
+	texture3.Parent = Invincible
+	texture3.Face = Enum.NormalId.Right
+	texture3.Texture = "http://www.roblox.com/asset/?id=395920626"
+	local texture4 = Instance.new("Decal")
+	texture4.Parent = Invincible
+	texture4.Face = Enum.NormalId.Back
+	texture4.Texture = "http://www.roblox.com/asset/?id=395920626"
     return Invincible
 end
 

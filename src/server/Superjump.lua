@@ -24,14 +24,34 @@ end
 
 -- Constructor of super jump instance
 function Superjump:createPowerUpInstance()
-    local Superjump = Instance.new("Part")
+	local Superjump = Instance.new("Part")
+	Superjump.Shape = Enum.PartType.Ball
     Superjump.Name = "Superjump"
-    Superjump.Size = Vector3.new(2, 2, 2)
-    Superjump.Position = self.position
+	Superjump.Size = Vector3.new(3, 3, 3)
+	Superjump.Transparency = 0.5
+    Superjump.Position = Vector3.new(self.position.X,self.position.Y+1,self.position.Z)
     Superjump.Anchored = true 
     Superjump.CanCollide = false
-    Superjump.BrickColor = BrickColor.new("Bright Blue")
-    Superjump.Parent = Workspace
+	Superjump.BrickColor = BrickColor.new("Bright Blue")
+	Superjump.Color = Color3.new(0,30,250)
+	Superjump.TopSurface = Enum.SurfaceType.Smooth
+	Superjump.Parent = Workspace
+	local texture = Instance.new("Decal")
+	texture.Parent = Superjump
+	texture.Face = Enum.NormalId.Back
+	texture.Texture = "http://www.roblox.com/asset/?id=7704062780"
+	local texture1 = Instance.new("Decal")
+	texture1.Parent = Superjump
+	texture1.Face = Enum.NormalId.Front
+	texture1.Texture = "http://www.roblox.com/asset/?id=7704062780"
+	local texture2 = Instance.new("Decal")
+	texture2.Parent = Superjump
+	texture2.Face = Enum.NormalId.Left
+	texture2.Texture = "http://www.roblox.com/asset/?id=7704062780"
+	local texture3 = Instance.new("Decal")
+	texture3.Parent = Superjump
+	texture3.Face = Enum.NormalId.Right
+	texture3.Texture = "http://www.roblox.com/asset/?id=7704062780"
     return Superjump
 end
 
