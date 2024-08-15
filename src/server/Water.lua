@@ -48,10 +48,11 @@ function Water:createWaterDeathZone(position, size)
                 local humanoid = character.Humanoid
                 -- Kill player if player does not have invincible
                 if not humanoid:GetAttribute("Invincible") then
-                    humanoid.Health = 0
 
 					local player = Players:GetPlayerFromCharacter(character)
 					TimerManager.resetTimer(player)
+
+                    humanoid.Health = 0
 
                     -- award Badge the Water is Poisonous
                     BadgeService:AwardBadge(player.UserId, BADGE_killed_by_water)

@@ -10,6 +10,7 @@ local LogGen = require(game.ServerScriptService.Server.LogGen)
 local TimerManager = require(game.ServerScriptService.Server.TimerManager)
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local AddLevel = ReplicatedStorage:WaitForChild("AddLevel")
 
 local Level = {}
 Level.__index = Level
@@ -92,9 +93,14 @@ function Level:createTerrain()
 			if (score.Value < self.lognum) then
 				TimerManager.resetTimer(player)
 				score.Value = self.lognum
+
+
+				AddLevel:FireClient(player, self.lognum);
+
 			end
 			-- Set the respawn location to this part's position
 			player.RespawnLocation = teleporter;
+
 			-- Optionally, give some feedback to the player
 			if character:FindFirstChild("Humanoid") then
 				character.Humanoid:TakeDamage(0)  -- Just to trigger any feedback, if needed
