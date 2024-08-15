@@ -44,7 +44,7 @@ function Timer:reset()
 	self.remainingTime = self.duration
 	self.isRunning = true
     self.isPaused = false
-    coroutine.wrap(function() self:_run() end)()
+    --coroutine.wrap(function() self:_run() end)()
 end
 
 -- When timer is running
