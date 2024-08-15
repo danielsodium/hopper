@@ -53,7 +53,7 @@ end
 
 -- Function to reset timer for a player
 function TimerManager.resetTimer(player)
-	Timers[player.userId]:reset()
+	Timers[player]:reset()
 end
 
 -- Function to initialize the TimerManager

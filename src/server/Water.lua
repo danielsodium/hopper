@@ -47,10 +47,10 @@ function Water:createWaterDeathZone(position, size)
             if character and character:FindFirstChild("Humanoid") then
                 local humanoid = character.Humanoid
                 -- Kill player if player does not have invincible
-                if not humanoid:GetAttribute("Invincible") then
+                if (not humanoid:GetAttribute("Invincible")) and (humanoid.Health ~= 0) then
 
 					local player = Players:GetPlayerFromCharacter(character)
-					TimerManager.resetTimer(player)
+					TimerManager.resetTimer(player.UserId)
 
                     humanoid.Health = 0
 

@@ -91,7 +91,7 @@ function Level:createTerrain()
 			local score = player:FindFirstChild("leaderstats"):FindFirstChild("Levels")
 
 			if (score.Value < self.lognum) then
-				TimerManager.resetTimer(player)
+				TimerManager.resetTimer(player.UserId)
 				score.Value = self.lognum
 
 
