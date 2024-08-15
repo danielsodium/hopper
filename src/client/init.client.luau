@@ -9,6 +9,8 @@ local Function
 local lastPlatformCFrame
 
 local function onCharacterDied()
+	player:WaitForChild("PlayerGui"):WaitForChild("ScreenGui"):WaitForChild("ImageLabel").Visible = false;
+
     if Function then
         Function:Disconnect()
     end
@@ -45,7 +47,14 @@ local function setupCharacter(character)
     Function = RunService.Heartbeat:Connect(onHeartbeat)
 end
 
+local loaded = false 
 player.CharacterAdded:Connect(function(character)
+	if (loaded) then
+		player:WaitForChild("PlayerGui"):WaitForChild("ScreenGui"):WaitForChild("ImageLabel").Visible = true;
+	else 
+		loaded = true
+	end
+	
     setupCharacter(character)
 end)
 
